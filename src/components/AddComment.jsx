@@ -27,7 +27,7 @@ class AddComment extends Component {
       )
       if (response.ok) {
      
-        alert('Comment was sent!')
+        // alert('Comment was sent!')
         this.setState({
           comment: {
             comment: '',
@@ -37,7 +37,7 @@ class AddComment extends Component {
         })
       } else {
        
-        alert('something went wrong')
+        // alert('something went wrong')
       }
     } catch (error) {
    
