@@ -26,8 +26,7 @@ class AddComment extends Component {
         }
       )
       if (response.ok) {
-        console.log(this.state.comment)
-        console.log(this.props.asin)
+     
         alert('Comment was sent!')
         this.setState({
           comment: {
@@ -37,14 +36,11 @@ class AddComment extends Component {
           },
         })
       } else {
-        console.log(this.state.comment)
-        console.log(this.props.asin)
-        console.log('error')
+       
         alert('something went wrong')
       }
     } catch (error) {
-      console.log(this.state.comment)
-      console.log(this.props.asin)
+   
       console.log('error')
     }
   }
@@ -65,6 +61,7 @@ class AddComment extends Component {
                   comment: {
                     ...this.state.comment,
                     comment: e.target.value,
+                    elementId: this.props.asin,
                   },
                 })
               }
