@@ -10,12 +10,9 @@ class AddComment extends Component {
     },
   }
   
-  async sendComment (e) {
+ sendComment = async (e)=> {
     e.preventDefault()
-    if(!this.props.asin)
-    {
-      return
-    }
+
     try {
       let response = await fetch(
         'https://striveschool-api.herokuapp.com/api/comments',
@@ -51,18 +48,8 @@ class AddComment extends Component {
       console.log('error')
     }
   }
-  componentDidMount(){
-    console.log("sendcomment didmound ok")
-    this.sendComment()
-  }
-  componentDidUpdate(prevProps)
-  {
-    if(prevProps.asin!==this.props.asin)
-    {
-      console.log("sendcomment ok")
-      this.sendComment()
-    }
-  }
+
+
   render() {
     return (
       <div className="my-3">
