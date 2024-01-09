@@ -1,16 +1,19 @@
-import { Component } from 'react'
-import { Button, Form } from 'react-bootstrap'
 
-class AddComment extends Component {
-  state = {
-    comment: {
-      comment: '',
-      rate: 1,
-      elementId: this.props.asin,
-    },
-  }
-  
- sendComment = async (e)=> {
+import { Button, Form } from 'react-bootstrap'
+import { useState } from 'react'
+
+
+
+
+
+
+
+
+function AddComment(asin) {
+
+  const [comment, setcomment] = useState({ comment: "", rate: "1", elementId: asin, })
+
+  async function sendComment(e) {
     e.preventDefault()
 
     try {
@@ -18,7 +21,7 @@ class AddComment extends Component {
         'https://striveschool-api.herokuapp.com/api/comments',
         {
           method: 'POST',
-          body: JSON.stringify(this.state.comment),
+          body: JSON.stringify(comment),
           headers: {
             'Content-type': 'application/json',
             "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTliZmJkZWUwZGQxZDAwMTgyZDE3NWUiLCJpYXQiOjE3MDQ3MjEzNzUsImV4cCI6MTcwNTkzMDk3NX0.4ZXIQ3PvGX5u4WX-8mHRnz2sJe3gax22dar7QBMlpos",
@@ -26,75 +29,72 @@ class AddComment extends Component {
         }
       )
       if (response.ok) {
-     
-        // alert('Comment was sent!')
-        this.setState({
-          comment: {
-            comment: '',
-            rate: 1,
-            elementId: this.props.asin,
-          },
-        })
-      } else {
-       
-        // alert('something went wrong')
+        alert("commento inserito")
+         setcomment({
+           comment: '',
+           rate: 1,
+           elementId: asin,
+         })
       }
-    } catch (error) {
-   
+      else {
+        console.log(asin)
+        alert('something went wrong')
+      }
+    }
+    catch (error) {
+
       console.log('error')
     }
   }
 
+  return (
+    <div className="my-3">
+      <Form onSubmit={sendComment}>
+        <Form.Group>
+          <Form.Label>Comment text</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Add comment here"
+            value={comment.comment}
+            onChange={(e) =>
 
-  render() {
-    return (
-      <div className="my-3">
-        <Form onSubmit={this.sendComment}>
-          <Form.Group>
-            <Form.Label>Comment text</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Add comment here"
-              value={this.state.comment.comment}
-              onChange={(e) =>
-                this.setState({
-                  comment: {
-                    ...this.state.comment,
-                    comment: e.target.value,
-                    elementId: this.props.asin,
-                  },
-                })
-              }
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Rating</Form.Label>
-            <Form.Control
-              as="select"
-              value={this.state.comment.rate}
-              onChange={(e) =>
-                this.setState({
-                  comment: {
-                    ...this.state.comment,
-                    rate: e.target.value,
-                  },
-                })
-              }
-            >
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </Form.Control>
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
-      </div>
-    )
-  }
+              setcomment({
+                ...comment,
+                comment: e.target.value,
+                elementId:asin,
+              })
+            }
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Rating</Form.Label>
+          <Form.Control
+            as="select"
+            value={comment.rate}
+            onChange={(e) =>
+              setcomment({
+                ...comment,
+                rate: e.target.value,
+                elementId:asin,
+              })
+
+            }
+          >
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </Form.Control>
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          {console.log(comment)}
+          Submit
+        </Button>
+      </Form>
+    </div>
+  )
 }
+
 
 export default AddComment
