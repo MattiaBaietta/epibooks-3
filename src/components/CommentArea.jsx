@@ -52,11 +52,11 @@ function CommentArea(asin) {
 
 
   return (
-    <div className="w-50 text-center">
+    <div data-testid="comment-area" className="w-50 text-center">
       {isLoading && <Loading />}
       {isError && <Error />}
       {AddComment(asin)}
-      <CommentList commentsToShow={comments} />
+      <CommentList  commentsToShow={comments} />
     </div>
   )
 }

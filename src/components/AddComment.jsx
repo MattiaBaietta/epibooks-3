@@ -11,7 +11,8 @@ import { useState } from 'react'
 
 function AddComment(asin) {
 
-  const [comment, setcomment] = useState({ comment: "", rate: "1", elementId: asin, })
+  const [comment, setcomment] = useState({ comment: "", rate: "1",})
+
 
   async function sendComment(e) {
     e.preventDefault()
@@ -21,7 +22,7 @@ function AddComment(asin) {
         'https://striveschool-api.herokuapp.com/api/comments',
         {
           method: 'POST',
-          body: JSON.stringify(comment),
+          body: JSON.stringify({...comment,elementId:asin}),
           headers: {
             'Content-type': 'application/json',
             "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTliZmJkZWUwZGQxZDAwMTgyZDE3NWUiLCJpYXQiOjE3MDQ3MjEzNzUsImV4cCI6MTcwNTkzMDk3NX0.4ZXIQ3PvGX5u4WX-8mHRnz2sJe3gax22dar7QBMlpos",
@@ -33,7 +34,6 @@ function AddComment(asin) {
          setcomment({
            comment: '',
            rate: 1,
-           elementId: asin,
          })
       }
       else {
@@ -61,7 +61,7 @@ function AddComment(asin) {
               setcomment({
                 ...comment,
                 comment: e.target.value,
-                elementId:asin,
+                
               })
             }
           />
@@ -75,7 +75,8 @@ function AddComment(asin) {
               setcomment({
                 ...comment,
                 rate: e.target.value,
-                elementId:asin,
+                
+                
               })
 
             }
@@ -88,7 +89,7 @@ function AddComment(asin) {
           </Form.Control>
         </Form.Group>
         <Button variant="primary" type="submit">
-          {console.log(comment)}
+          
           Submit
         </Button>
       </Form>

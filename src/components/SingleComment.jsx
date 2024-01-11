@@ -23,7 +23,7 @@ const SingleComment = ({ comment }) => {
   }
 
   return (
-    <ListGroup.Item>
+    <ListGroup.Item data-testid="single-comment">
       {comment.comment}
       <Button
         variant="danger"
